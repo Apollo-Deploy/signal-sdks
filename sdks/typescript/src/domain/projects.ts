@@ -14,111 +14,85 @@ import type {
   UpdateProjectRequest,
 } from '../types/index.js';
 
-export interface ProjectsAPI {
-  listProjects(options?: RequestOptions): Promise<ProjectPageResponse>;
+export class ProjectsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
 
-  getProject(projectId: string, options?: RequestOptions): Promise<ProjectResponse>;
+  listProjects(options?: RequestOptions): Promise<ProjectPageResponse> {
+    return this._transport.executeRequest<ProjectPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
+
+  getProject(projectId: string, options?: RequestOptions): Promise<ProjectResponse> {
+    return this._transport.executeRequest<ProjectResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateProject(
     projectId: string,
     input: UpdateProjectRequest,
     options?: RequestOptions,
-  ): Promise<ProjectResponse>;
+  ): Promise<ProjectResponse> {
+    return this._transport.executeRequest<ProjectResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  listEmails(projectId: string, options?: RequestOptions): Promise<EmailPageResponse>;
+  listEmails(projectId: string, options?: RequestOptions): Promise<EmailPageResponse> {
+    return this._transport.executeRequest<EmailPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getProjectEmail(
     projectId: string,
     emailId: string,
     options?: RequestOptions,
-  ): Promise<EmailDetailResponse>;
+  ): Promise<EmailDetailResponse> {
+    return this._transport.executeRequest<EmailDetailResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails/${encodeURIComponent(String(emailId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getEmailTimeline(
     projectId: string,
     emailId: string,
     options?: RequestOptions,
-  ): Promise<EmailTimelineResponse>;
-}
-
-export function createProjectsAPI(transport: SDKTransport): ProjectsAPI {
-  return {
-    listProjects(options?: RequestOptions): Promise<ProjectPageResponse> {
-      return transport.executeRequest<ProjectPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getProject(projectId: string, options?: RequestOptions): Promise<ProjectResponse> {
-      return transport.executeRequest<ProjectResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateProject(
-      projectId: string,
-      input: UpdateProjectRequest,
-      options?: RequestOptions,
-    ): Promise<ProjectResponse> {
-      return transport.executeRequest<ProjectResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    listEmails(projectId: string, options?: RequestOptions): Promise<EmailPageResponse> {
-      return transport.executeRequest<EmailPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getProjectEmail(
-      projectId: string,
-      emailId: string,
-      options?: RequestOptions,
-    ): Promise<EmailDetailResponse> {
-      return transport.executeRequest<EmailDetailResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails/${encodeURIComponent(String(emailId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getEmailTimeline(
-      projectId: string,
-      emailId: string,
-      options?: RequestOptions,
-    ): Promise<EmailTimelineResponse> {
-      return transport.executeRequest<EmailTimelineResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails/${encodeURIComponent(String(emailId))}/events`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-  };
+  ): Promise<EmailTimelineResponse> {
+    return this._transport.executeRequest<EmailTimelineResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/emails/${encodeURIComponent(String(emailId))}/events`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 }

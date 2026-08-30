@@ -67,7 +67,7 @@ public final class ApolloSignalApi: @unchecked Sendable {
                 authHeaders: authHeaders,
                 authQuery: authQuery,
                 authCookies: authCookies,
-                userAgent: "ApolloSignal/1.0.5"
+                userAgent: "ApolloSignal/4.0.0"
             )
         )
         emails = EmailsApi(transport: transport)

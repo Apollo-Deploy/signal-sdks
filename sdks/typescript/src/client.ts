@@ -4,152 +4,72 @@
  * DO NOT MODIFY THIS FILE DIRECTLY.
  */
 
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
-import {
-  createTransport,
-  type SDKTransport,
-  type SDKPlugin,
-  type RequestMeta,
-  type ResponseMeta,
-  type ErrorMeta,
-} from './transport/axios.js';
-import { createEmailsAPI, type EmailsAPI } from './domain/emails.js';
-import { createMetricsAPI, type MetricsAPI } from './domain/metrics.js';
-import { createSuppressionsAPI, type SuppressionsAPI } from './domain/suppressions.js';
-import { createSegmentsAPI, type SegmentsAPI } from './domain/segments.js';
-import { createTopicsAPI, type TopicsAPI } from './domain/topics.js';
-import {
-  createContactPropertiesAPI,
-  type ContactPropertiesAPI,
-} from './domain/contact-properties.js';
-import { createContactsAPI, type ContactsAPI } from './domain/contacts.js';
-import { createWebhooksAPI, type WebhooksAPI } from './domain/webhooks.js';
-import { createApiKeysAPI, type ApiKeysAPI } from './domain/api-keys.js';
-import { createProjectsAPI, type ProjectsAPI } from './domain/projects.js';
-import { createSendingDomainsAPI, type SendingDomainsAPI } from './domain/sending-domains.js';
+import { createTransport, type SDKTransport } from './transport/axios.js';
+import { EmailsAPI } from './domain/emails.js';
+import { MetricsAPI } from './domain/metrics.js';
+import { SuppressionsAPI } from './domain/suppressions.js';
+import { SegmentsAPI } from './domain/segments.js';
+import { TopicsAPI } from './domain/topics.js';
+import { ContactPropertiesAPI } from './domain/contact-properties.js';
+import { ContactsAPI } from './domain/contacts.js';
+import { WebhooksAPI } from './domain/webhooks.js';
+import { ApiKeysAPI } from './domain/api-keys.js';
+import { ProjectsAPI } from './domain/projects.js';
+import { SendingDomainsAPI } from './domain/sending-domains.js';
 
 /**
- * Client configuration for Apollo Signal API
+ * Apollo Signal API SDK client.
+ *
+ * @example
+ * ```ts
+ * import { ApolloSignalApi } from '@apollo-deploy/signal-sdk';
+ *
+ * const client = new ApolloSignalApi();
+ * ```
  */
-export interface ApolloSignalApiClientConfig {
-  /** Base URL for the API */
-  baseUrl?: string;
-  /** Request timeout in milliseconds (default: 15000) */
-  timeoutMs?: number;
-  /** Retry configuration */
-  retries?: { attempts: number; backoffMs: number; jitter: boolean; maxBackoffMs?: number };
-  /** Custom idempotency key generator */
-  getIdempotencyKey?: () => string;
-  /** Request telemetry hook */
-  onRequest?: (meta: RequestMeta) => void;
-  /** Response telemetry hook */
-  onResponse?: (meta: ResponseMeta) => void;
-  /** Error telemetry hook */
-  onError?: (meta: ErrorMeta) => void;
-  /** Send credentials (cookies, HTTP auth) on cross-origin requests */
-  withCredentials?: boolean;
-  /** Static cookie key/value pairs sent with every request */
-  cookies?: Record<string, string>;
-  /** Ordered list of plugins applied to every request and response */
-  plugins?: SDKPlugin[];
-  /** Default headers sent with every request */
-  defaultHeaders?: Record<string, string>;
-  /** Custom Axios configuration (proxy, httpsAgent, etc.) */
-  axiosConfig?: Omit<AxiosRequestConfig, 'baseURL' | 'timeout' | 'withCredentials' | 'headers'>;
-  /** Custom function to map raw errors to SDKError */
-  mapError?: (error: unknown) => import('./types/errors.js').SDKError;
-  /** HTTP methods that should receive an idempotency key */
-  idempotentMethods?: string[];
-}
+export class ApolloSignalApi {
+  private readonly _transport: SDKTransport;
 
-/**
- * Apollo Signal API SDK Client
- */
-export interface ApolloSignalApiClient {
-  /** Client configuration */
-  config: ApolloSignalApiClientConfig;
-  /** Transport runtime for advanced use */
-  transport: SDKTransport;
-  /** Raw Axios instance (advanced use) */
-  _axios: AxiosInstance;
   /** EmailsAPI operations */
-  emails: EmailsAPI;
+  readonly emails: EmailsAPI;
   /** MetricsAPI operations */
-  metrics: MetricsAPI;
+  readonly metrics: MetricsAPI;
   /** SuppressionsAPI operations */
-  suppressions: SuppressionsAPI;
+  readonly suppressions: SuppressionsAPI;
   /** SegmentsAPI operations */
-  segments: SegmentsAPI;
+  readonly segments: SegmentsAPI;
   /** TopicsAPI operations */
-  topics: TopicsAPI;
+  readonly topics: TopicsAPI;
   /** ContactPropertiesAPI operations */
-  contactProperties: ContactPropertiesAPI;
+  readonly contactProperties: ContactPropertiesAPI;
   /** ContactsAPI operations */
-  contacts: ContactsAPI;
+  readonly contacts: ContactsAPI;
   /** WebhooksAPI operations */
-  webhooks: WebhooksAPI;
+  readonly webhooks: WebhooksAPI;
   /** ApiKeysAPI operations */
-  apiKeys: ApiKeysAPI;
+  readonly apiKeys: ApiKeysAPI;
   /** ProjectsAPI operations */
-  projects: ProjectsAPI;
+  readonly projects: ProjectsAPI;
   /** SendingDomainsAPI operations */
-  sendingDomains: SendingDomainsAPI;
-}
+  readonly sendingDomains: SendingDomainsAPI;
 
-/**
- * Create a new Apollo Signal API SDK client
- */
-export function createApolloSignalApiClient(
-  cfg: ApolloSignalApiClientConfig = {},
-): ApolloSignalApiClient {
-  const config: ApolloSignalApiClientConfig = {
-    baseUrl: cfg.baseUrl ?? 'https://signal.apollodeploy.com',
-    timeoutMs: cfg.timeoutMs ?? 15000,
-    retries: cfg.retries ?? { attempts: 3, backoffMs: 400, jitter: true },
-    getIdempotencyKey: cfg.getIdempotencyKey,
-    onRequest: cfg.onRequest,
-    onResponse: cfg.onResponse,
-    onError: cfg.onError,
-    withCredentials: cfg.withCredentials,
-    cookies: cfg.cookies,
-    plugins: cfg.plugins,
-    defaultHeaders: cfg.defaultHeaders,
-    axiosConfig: cfg.axiosConfig,
-    mapError: cfg.mapError,
-    idempotentMethods: cfg.idempotentMethods,
-  };
+  constructor() {
+    this._transport = createTransport({
+      baseUrl: 'https://signal.apollodeploy.com',
+      timeoutMs: 15000,
+      retries: { attempts: 3, backoffMs: 400, jitter: true },
+    });
 
-  const transport = createTransport({
-    baseUrl: config.baseUrl!,
-    timeoutMs: config.timeoutMs,
-    retries: config.retries,
-    getIdempotencyKey: config.getIdempotencyKey,
-    onRequest: config.onRequest,
-    onResponse: config.onResponse,
-    onError: config.onError,
-    withCredentials: config.withCredentials,
-    cookies: config.cookies,
-    plugins: config.plugins,
-    defaultHeaders: config.defaultHeaders,
-    axiosConfig: config.axiosConfig,
-    mapError: config.mapError,
-    idempotentMethods: config.idempotentMethods,
-  });
-
-  return {
-    config,
-    transport,
-    _axios: transport.axios,
-    emails: createEmailsAPI(transport),
-    metrics: createMetricsAPI(transport),
-    suppressions: createSuppressionsAPI(transport),
-    segments: createSegmentsAPI(transport),
-    topics: createTopicsAPI(transport),
-    contactProperties: createContactPropertiesAPI(transport),
-    contacts: createContactsAPI(transport),
-    webhooks: createWebhooksAPI(transport),
-    apiKeys: createApiKeysAPI(transport),
-    projects: createProjectsAPI(transport),
-    sendingDomains: createSendingDomainsAPI(transport),
-  };
+    this.emails = new EmailsAPI(this._transport);
+    this.metrics = new MetricsAPI(this._transport);
+    this.suppressions = new SuppressionsAPI(this._transport);
+    this.segments = new SegmentsAPI(this._transport);
+    this.topics = new TopicsAPI(this._transport);
+    this.contactProperties = new ContactPropertiesAPI(this._transport);
+    this.contacts = new ContactsAPI(this._transport);
+    this.webhooks = new WebhooksAPI(this._transport);
+    this.apiKeys = new ApiKeysAPI(this._transport);
+    this.projects = new ProjectsAPI(this._transport);
+    this.sendingDomains = new SendingDomainsAPI(this._transport);
+  }
 }

@@ -101,7 +101,7 @@ defmodule ApolloSignal.Transport do
     base_url = opts |> Keyword.get(:base_url, "https://signal.apollodeploy.com") |> normalize_base_url()
     timeout_ms = positive_integer(Keyword.get(opts, :timeout_ms, 15_000), 15_000)
     max_retries = bounded_retries(Keyword.get(opts, :max_retries, 3))
-    user_agent = Keyword.get(opts, :user_agent, "apollo_signal-elixir-sdk/1.0.5")
+    user_agent = Keyword.get(opts, :user_agent, "apollo_signal-elixir-sdk/4.0.0")
 
     default_headers =
       opts

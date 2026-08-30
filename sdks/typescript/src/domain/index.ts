@@ -4,25 +4,14 @@
  * DO NOT MODIFY THIS FILE DIRECTLY.
  */
 
-export { createEmailsAPI } from './emails.js';
-export type { EmailsAPI } from './emails.js';
-export { createMetricsAPI } from './metrics.js';
-export type { MetricsAPI } from './metrics.js';
-export { createSuppressionsAPI } from './suppressions.js';
-export type { SuppressionsAPI } from './suppressions.js';
-export { createSegmentsAPI } from './segments.js';
-export type { SegmentsAPI } from './segments.js';
-export { createTopicsAPI } from './topics.js';
-export type { TopicsAPI } from './topics.js';
-export { createContactPropertiesAPI } from './contact-properties.js';
-export type { ContactPropertiesAPI } from './contact-properties.js';
-export { createContactsAPI } from './contacts.js';
-export type { ContactsAPI } from './contacts.js';
-export { createWebhooksAPI } from './webhooks.js';
-export type { WebhooksAPI } from './webhooks.js';
-export { createApiKeysAPI } from './api-keys.js';
-export type { ApiKeysAPI } from './api-keys.js';
-export { createProjectsAPI } from './projects.js';
-export type { ProjectsAPI } from './projects.js';
-export { createSendingDomainsAPI } from './sending-domains.js';
-export type { SendingDomainsAPI } from './sending-domains.js';
+export { EmailsAPI } from './emails.js';
+export { MetricsAPI } from './metrics.js';
+export { SuppressionsAPI } from './suppressions.js';
+export { SegmentsAPI } from './segments.js';
+export { TopicsAPI } from './topics.js';
+export { ContactPropertiesAPI } from './contact-properties.js';
+export { ContactsAPI } from './contacts.js';
+export { WebhooksAPI } from './webhooks.js';
+export { ApiKeysAPI } from './api-keys.js';
+export { ProjectsAPI } from './projects.js';
+export { SendingDomainsAPI } from './sending-domains.js';

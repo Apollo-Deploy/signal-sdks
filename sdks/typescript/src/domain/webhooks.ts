@@ -15,201 +15,150 @@ import type {
   WebhookResponse,
 } from '../types/index.js';
 
-export interface WebhooksAPI {
-  listWebhooks(projectId: string, options?: RequestOptions): Promise<WebhookPageResponse>;
+export class WebhooksAPI {
+  constructor(private readonly _transport: SDKTransport) {}
+
+  listWebhooks(projectId: string, options?: RequestOptions): Promise<WebhookPageResponse> {
+    return this._transport.executeRequest<WebhookPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getWebhook(
     projectId: string,
     endpointId: string,
     options?: RequestOptions,
-  ): Promise<WebhookResponse>;
+  ): Promise<WebhookResponse> {
+    return this._transport.executeRequest<WebhookResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   listWebhookDeliveries(
     projectId: string,
     endpointId: string,
     options?: RequestOptions,
-  ): Promise<WebhookDeliveryPageResponse>;
+  ): Promise<WebhookDeliveryPageResponse> {
+    return this._transport.executeRequest<WebhookDeliveryPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/deliveries`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getWebhookDelivery(
     projectId: string,
     endpointId: string,
     deliveryId: string,
     options?: RequestOptions,
-  ): Promise<WebhookDeliveryResponse>;
+  ): Promise<WebhookDeliveryResponse> {
+    return this._transport.executeRequest<WebhookDeliveryResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/deliveries/${encodeURIComponent(String(deliveryId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   createWebhook(
     projectId: string,
     input: CreateWebhookBody,
     options?: RequestOptions,
-  ): Promise<WebhookCreateResponse>;
+  ): Promise<WebhookCreateResponse> {
+    return this._transport.executeRequest<WebhookCreateResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateWebhook(
     projectId: string,
     endpointId: string,
     input: UpdateWebhookBody,
     options?: RequestOptions,
-  ): Promise<WebhookResponse>;
+  ): Promise<WebhookResponse> {
+    return this._transport.executeRequest<WebhookResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteWebhook(projectId: string, endpointId: string, options?: RequestOptions): Promise<void>;
+  deleteWebhook(projectId: string, endpointId: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   testWebhook(
     projectId: string,
     endpointId: string,
     options?: RequestOptions,
-  ): Promise<WebhookDeliveryResponse>;
+  ): Promise<WebhookDeliveryResponse> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<WebhookDeliveryResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/test`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   replayWebhookDelivery(
     projectId: string,
     endpointId: string,
     deliveryId: string,
     options?: RequestOptions,
-  ): Promise<void>;
-}
-
-export function createWebhooksAPI(transport: SDKTransport): WebhooksAPI {
-  return {
-    listWebhooks(projectId: string, options?: RequestOptions): Promise<WebhookPageResponse> {
-      return transport.executeRequest<WebhookPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getWebhook(
-      projectId: string,
-      endpointId: string,
-      options?: RequestOptions,
-    ): Promise<WebhookResponse> {
-      return transport.executeRequest<WebhookResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    listWebhookDeliveries(
-      projectId: string,
-      endpointId: string,
-      options?: RequestOptions,
-    ): Promise<WebhookDeliveryPageResponse> {
-      return transport.executeRequest<WebhookDeliveryPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/deliveries`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getWebhookDelivery(
-      projectId: string,
-      endpointId: string,
-      deliveryId: string,
-      options?: RequestOptions,
-    ): Promise<WebhookDeliveryResponse> {
-      return transport.executeRequest<WebhookDeliveryResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/deliveries/${encodeURIComponent(String(deliveryId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    createWebhook(
-      projectId: string,
-      input: CreateWebhookBody,
-      options?: RequestOptions,
-    ): Promise<WebhookCreateResponse> {
-      return transport.executeRequest<WebhookCreateResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateWebhook(
-      projectId: string,
-      endpointId: string,
-      input: UpdateWebhookBody,
-      options?: RequestOptions,
-    ): Promise<WebhookResponse> {
-      return transport.executeRequest<WebhookResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteWebhook(projectId: string, endpointId: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    testWebhook(
-      projectId: string,
-      endpointId: string,
-      options?: RequestOptions,
-    ): Promise<WebhookDeliveryResponse> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<WebhookDeliveryResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/test`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    replayWebhookDelivery(
-      projectId: string,
-      endpointId: string,
-      deliveryId: string,
-      options?: RequestOptions,
-    ): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/replay/${encodeURIComponent(String(deliveryId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  ): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/webhooks/${encodeURIComponent(String(endpointId))}/replay/${encodeURIComponent(String(deliveryId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

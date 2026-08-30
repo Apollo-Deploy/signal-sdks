@@ -7,68 +7,54 @@
 import type { SDKTransport, RequestOptions } from '../transport/axios.js';
 import type { ApiKey, ApiKeyUsageResponse, ListApiKeysResponse } from '../types/index.js';
 
-export interface ApiKeysAPI {
-  listApiKeys(projectId: string, options?: RequestOptions): Promise<ListApiKeysResponse>;
+export class ApiKeysAPI {
+  constructor(private readonly _transport: SDKTransport) {}
 
-  getApiKey(projectId: string, keyId: string, options?: RequestOptions): Promise<ApiKey>;
+  listApiKeys(projectId: string, options?: RequestOptions): Promise<ListApiKeysResponse> {
+    return this._transport.executeRequest<ListApiKeysResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
+
+  getApiKey(projectId: string, keyId: string, options?: RequestOptions): Promise<ApiKey> {
+    return this._transport.executeRequest<ApiKey>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getApiKeyUsage(
     projectId: string,
     keyId: string,
     options?: RequestOptions,
-  ): Promise<ApiKeyUsageResponse>;
+  ): Promise<ApiKeyUsageResponse> {
+    return this._transport.executeRequest<ApiKeyUsageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}/usage`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  exportApiKeyUsage(projectId: string, keyId: string, options?: RequestOptions): Promise<void>;
-}
-
-export function createApiKeysAPI(transport: SDKTransport): ApiKeysAPI {
-  return {
-    listApiKeys(projectId: string, options?: RequestOptions): Promise<ListApiKeysResponse> {
-      return transport.executeRequest<ListApiKeysResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getApiKey(projectId: string, keyId: string, options?: RequestOptions): Promise<ApiKey> {
-      return transport.executeRequest<ApiKey>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getApiKeyUsage(
-      projectId: string,
-      keyId: string,
-      options?: RequestOptions,
-    ): Promise<ApiKeyUsageResponse> {
-      return transport.executeRequest<ApiKeyUsageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}/usage`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    exportApiKeyUsage(projectId: string, keyId: string, options?: RequestOptions): Promise<void> {
-      return transport.executeRequest<void>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}/usage/export`,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  exportApiKeyUsage(projectId: string, keyId: string, options?: RequestOptions): Promise<void> {
+    return this._transport.executeRequest<void>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/api-keys/${encodeURIComponent(String(keyId))}/usage/export`,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

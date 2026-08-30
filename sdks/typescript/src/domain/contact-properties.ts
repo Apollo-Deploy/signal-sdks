@@ -12,119 +12,87 @@ import type {
   UpdateContactPropertyBody,
 } from '../types/index.js';
 
-export interface ContactPropertiesAPI {
+export class ContactPropertiesAPI {
+  constructor(private readonly _transport: SDKTransport) {}
+
   listContactProperties(
     projectId: string,
     options?: RequestOptions,
-  ): Promise<ContactPropertyPageResponse>;
+  ): Promise<ContactPropertyPageResponse> {
+    return this._transport.executeRequest<ContactPropertyPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getContactProperty(
     projectId: string,
     propertyId: string,
     options?: RequestOptions,
-  ): Promise<ContactPropertyResponse>;
+  ): Promise<ContactPropertyResponse> {
+    return this._transport.executeRequest<ContactPropertyResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   createContactProperty(
     projectId: string,
     input: CreateContactPropertyBody,
     options?: RequestOptions,
-  ): Promise<ContactPropertyResponse>;
+  ): Promise<ContactPropertyResponse> {
+    return this._transport.executeRequest<ContactPropertyResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateContactProperty(
     projectId: string,
     propertyId: string,
     input: UpdateContactPropertyBody,
     options?: RequestOptions,
-  ): Promise<ContactPropertyResponse>;
+  ): Promise<ContactPropertyResponse> {
+    return this._transport.executeRequest<ContactPropertyResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   deleteContactProperty(
     projectId: string,
     propertyId: string,
     options?: RequestOptions,
-  ): Promise<void>;
-}
-
-export function createContactPropertiesAPI(transport: SDKTransport): ContactPropertiesAPI {
-  return {
-    listContactProperties(
-      projectId: string,
-      options?: RequestOptions,
-    ): Promise<ContactPropertyPageResponse> {
-      return transport.executeRequest<ContactPropertyPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getContactProperty(
-      projectId: string,
-      propertyId: string,
-      options?: RequestOptions,
-    ): Promise<ContactPropertyResponse> {
-      return transport.executeRequest<ContactPropertyResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    createContactProperty(
-      projectId: string,
-      input: CreateContactPropertyBody,
-      options?: RequestOptions,
-    ): Promise<ContactPropertyResponse> {
-      return transport.executeRequest<ContactPropertyResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateContactProperty(
-      projectId: string,
-      propertyId: string,
-      input: UpdateContactPropertyBody,
-      options?: RequestOptions,
-    ): Promise<ContactPropertyResponse> {
-      return transport.executeRequest<ContactPropertyResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteContactProperty(
-      projectId: string,
-      propertyId: string,
-      options?: RequestOptions,
-    ): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  ): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contact-properties/${encodeURIComponent(String(propertyId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

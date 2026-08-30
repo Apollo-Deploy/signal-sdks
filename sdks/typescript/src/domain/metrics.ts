@@ -18,147 +18,117 @@ import type {
   TopicPerformanceResponse,
 } from '../types/index.js';
 
-export interface MetricsAPI {
+export class MetricsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
+
   getTopicPerformance(
     id: string,
     query?: GetTopicPerformanceQuery,
     options?: RequestOptions,
-  ): Promise<TopicPerformanceResponse>;
+  ): Promise<TopicPerformanceResponse> {
+    const params = query
+      ? {
+          window: query['window'],
+          projectId: query['projectId'],
+        }
+      : undefined;
+    return this._transport.executeRequest<TopicPerformanceResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/topics/${encodeURIComponent(String(id))}`,
+        params,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  getEmailPerformance(id: string, options?: RequestOptions): Promise<EmailPerformanceResponse>;
+  getEmailPerformance(id: string, options?: RequestOptions): Promise<EmailPerformanceResponse> {
+    return this._transport.executeRequest<EmailPerformanceResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/emails/${encodeURIComponent(String(id))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getEmailEngagement(
     id: string,
     options?: RequestOptions,
-  ): Promise<EmailReadScrollAnalyticsResponse>;
+  ): Promise<EmailReadScrollAnalyticsResponse> {
+    return this._transport.executeRequest<EmailReadScrollAnalyticsResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/emails/${encodeURIComponent(String(id))}/engagement`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getProjectMetricsSummary(
     query?: GetProjectMetricsSummaryQuery,
     options?: RequestOptions,
-  ): Promise<ProjectMetricsSummaryResponse>;
+  ): Promise<ProjectMetricsSummaryResponse> {
+    const params = query
+      ? {
+          window: query['window'],
+          projectId: query['projectId'],
+        }
+      : undefined;
+    return this._transport.executeRequest<ProjectMetricsSummaryResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/summary`,
+        params,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getProjectMetricsTimeline(
     query?: GetProjectMetricsTimelineQuery,
     options?: RequestOptions,
-  ): Promise<ProjectMetricsTimelineResponse>;
+  ): Promise<ProjectMetricsTimelineResponse> {
+    const params = query
+      ? {
+          window: query['window'],
+          granularity: query['granularity'],
+          format: query['format'],
+          projectId: query['projectId'],
+        }
+      : undefined;
+    return this._transport.executeRequest<ProjectMetricsTimelineResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/timeline`,
+        params,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getMetricsAdvisor(
     query?: GetMetricsAdvisorQuery,
     options?: RequestOptions,
-  ): Promise<AdvisorReportResponse>;
-}
-
-export function createMetricsAPI(transport: SDKTransport): MetricsAPI {
-  return {
-    getTopicPerformance(
-      id: string,
-      query?: GetTopicPerformanceQuery,
-      options?: RequestOptions,
-    ): Promise<TopicPerformanceResponse> {
-      const params = query
-        ? {
-            window: query['window'],
-            projectId: query['projectId'],
-          }
-        : undefined;
-      return transport.executeRequest<TopicPerformanceResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/topics/${encodeURIComponent(String(id))}`,
-          params,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getEmailPerformance(id: string, options?: RequestOptions): Promise<EmailPerformanceResponse> {
-      return transport.executeRequest<EmailPerformanceResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/emails/${encodeURIComponent(String(id))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getEmailEngagement(
-      id: string,
-      options?: RequestOptions,
-    ): Promise<EmailReadScrollAnalyticsResponse> {
-      return transport.executeRequest<EmailReadScrollAnalyticsResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/emails/${encodeURIComponent(String(id))}/engagement`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getProjectMetricsSummary(
-      query?: GetProjectMetricsSummaryQuery,
-      options?: RequestOptions,
-    ): Promise<ProjectMetricsSummaryResponse> {
-      const params = query
-        ? {
-            window: query['window'],
-            projectId: query['projectId'],
-          }
-        : undefined;
-      return transport.executeRequest<ProjectMetricsSummaryResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/summary`,
-          params,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getProjectMetricsTimeline(
-      query?: GetProjectMetricsTimelineQuery,
-      options?: RequestOptions,
-    ): Promise<ProjectMetricsTimelineResponse> {
-      const params = query
-        ? {
-            window: query['window'],
-            granularity: query['granularity'],
-            format: query['format'],
-            projectId: query['projectId'],
-          }
-        : undefined;
-      return transport.executeRequest<ProjectMetricsTimelineResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/timeline`,
-          params,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getMetricsAdvisor(
-      query?: GetMetricsAdvisorQuery,
-      options?: RequestOptions,
-    ): Promise<AdvisorReportResponse> {
-      const params = query
-        ? {
-            projectId: query['projectId'],
-          }
-        : undefined;
-      return transport.executeRequest<AdvisorReportResponse>(
-        {
-          method: 'GET',
-          url: `/v1/metrics/advisor`,
-          params,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-  };
+  ): Promise<AdvisorReportResponse> {
+    const params = query
+      ? {
+          projectId: query['projectId'],
+        }
+      : undefined;
+    return this._transport.executeRequest<AdvisorReportResponse>(
+      {
+        method: 'GET',
+        url: `/v1/metrics/advisor`,
+        params,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 }

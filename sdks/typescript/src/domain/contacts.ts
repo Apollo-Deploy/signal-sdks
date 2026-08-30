@@ -21,404 +21,300 @@ import type {
   UpdateTopicsBody,
 } from '../types/index.js';
 
-export interface ContactsAPI {
-  listContacts(projectId: string, options?: RequestOptions): Promise<ContactPageResponse>;
+export class ContactsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
+
+  listContacts(projectId: string, options?: RequestOptions): Promise<ContactPageResponse> {
+    return this._transport.executeRequest<ContactPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getContact(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<ContactResponse>;
+  ): Promise<ContactResponse> {
+    return this._transport.executeRequest<ContactResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   listContactSegments(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<ListContactSegmentsResponse>;
+  ): Promise<ListContactSegmentsResponse> {
+    return this._transport.executeRequest<ListContactSegmentsResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getContactTopics(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<GetContactTopicsResponse>;
+  ): Promise<GetContactTopicsResponse> {
+    return this._transport.executeRequest<GetContactTopicsResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/topics`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   createContact(
     projectId: string,
     input: CreateContactBody,
     options?: RequestOptions,
-  ): Promise<ContactResponse>;
+  ): Promise<ContactResponse> {
+    return this._transport.executeRequest<ContactResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateContact(
     projectId: string,
     contactId: string,
     input: UpdateContactBody,
     options?: RequestOptions,
-  ): Promise<ContactResponse>;
+  ): Promise<ContactResponse> {
+    return this._transport.executeRequest<ContactResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteContact(projectId: string, contactId: string, options?: RequestOptions): Promise<void>;
+  deleteContact(projectId: string, contactId: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   uploadContactImage(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<ContactResponse>;
+  ): Promise<ContactResponse> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<ContactResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   setContactImageUrl(
     projectId: string,
     contactId: string,
     input: SetImageUrlBody,
     options?: RequestOptions,
-  ): Promise<ContactResponse>;
+  ): Promise<ContactResponse> {
+    return this._transport.executeRequest<ContactResponse>(
+      {
+        method: 'PUT',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteContactImage(projectId: string, contactId: string, options?: RequestOptions): Promise<void>;
+  deleteContactImage(
+    projectId: string,
+    contactId: string,
+    options?: RequestOptions,
+  ): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   addContactToSegment(
     projectId: string,
     contactId: string,
     input: AddToSegmentBody,
     options?: RequestOptions,
-  ): Promise<void>;
+  ): Promise<void> {
+    return this._transport.executeRequest<void>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments`,
+        data: input,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   removeContactFromSegment(
     projectId: string,
     contactId: string,
     segmentId: string,
     options?: RequestOptions,
-  ): Promise<void>;
+  ): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments/${encodeURIComponent(String(segmentId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   updateContactTopics(
     projectId: string,
     contactId: string,
     input: UpdateTopicsBody,
     options?: RequestOptions,
-  ): Promise<void>;
+  ): Promise<void> {
+    return this._transport.executeRequest<void>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/topics`,
+        data: input,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   getContactActivity(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<GetContactActivityResponse>;
+  ): Promise<GetContactActivityResponse> {
+    return this._transport.executeRequest<GetContactActivityResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/activity`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getContactEngagementScore(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<EngagementScoreResponse>;
+  ): Promise<EngagementScoreResponse> {
+    return this._transport.executeRequest<EngagementScoreResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/engagement`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getContactEmailValidationStatus(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<EmailValidationStatusResponse>;
+  ): Promise<EmailValidationStatusResponse> {
+    return this._transport.executeRequest<EmailValidationStatusResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/email-validation`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   refreshContactEngagementScore(
     projectId: string,
     contactId: string,
     options?: RequestOptions,
-  ): Promise<EngagementScoreResponse>;
+  ): Promise<EngagementScoreResponse> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<EngagementScoreResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/engagement/refresh`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   recordContactEmailValidation(
     projectId: string,
     contactId: string,
     input: RecordValidationBody,
     options?: RequestOptions,
-  ): Promise<void>;
-}
-
-export function createContactsAPI(transport: SDKTransport): ContactsAPI {
-  return {
-    listContacts(projectId: string, options?: RequestOptions): Promise<ContactPageResponse> {
-      return transport.executeRequest<ContactPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getContact(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<ContactResponse> {
-      return transport.executeRequest<ContactResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    listContactSegments(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<ListContactSegmentsResponse> {
-      return transport.executeRequest<ListContactSegmentsResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getContactTopics(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<GetContactTopicsResponse> {
-      return transport.executeRequest<GetContactTopicsResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/topics`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    createContact(
-      projectId: string,
-      input: CreateContactBody,
-      options?: RequestOptions,
-    ): Promise<ContactResponse> {
-      return transport.executeRequest<ContactResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateContact(
-      projectId: string,
-      contactId: string,
-      input: UpdateContactBody,
-      options?: RequestOptions,
-    ): Promise<ContactResponse> {
-      return transport.executeRequest<ContactResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteContact(projectId: string, contactId: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    uploadContactImage(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<ContactResponse> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<ContactResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    setContactImageUrl(
-      projectId: string,
-      contactId: string,
-      input: SetImageUrlBody,
-      options?: RequestOptions,
-    ): Promise<ContactResponse> {
-      return transport.executeRequest<ContactResponse>(
-        {
-          method: 'PUT',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteContactImage(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/image`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    addContactToSegment(
-      projectId: string,
-      contactId: string,
-      input: AddToSegmentBody,
-      options?: RequestOptions,
-    ): Promise<void> {
-      return transport.executeRequest<void>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments`,
-          data: input,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    removeContactFromSegment(
-      projectId: string,
-      contactId: string,
-      segmentId: string,
-      options?: RequestOptions,
-    ): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/segments/${encodeURIComponent(String(segmentId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    updateContactTopics(
-      projectId: string,
-      contactId: string,
-      input: UpdateTopicsBody,
-      options?: RequestOptions,
-    ): Promise<void> {
-      return transport.executeRequest<void>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/topics`,
-          data: input,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    getContactActivity(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<GetContactActivityResponse> {
-      return transport.executeRequest<GetContactActivityResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/activity`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getContactEngagementScore(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<EngagementScoreResponse> {
-      return transport.executeRequest<EngagementScoreResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/engagement`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getContactEmailValidationStatus(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<EmailValidationStatusResponse> {
-      return transport.executeRequest<EmailValidationStatusResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/email-validation`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    refreshContactEngagementScore(
-      projectId: string,
-      contactId: string,
-      options?: RequestOptions,
-    ): Promise<EngagementScoreResponse> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<EngagementScoreResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/engagement/refresh`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    recordContactEmailValidation(
-      projectId: string,
-      contactId: string,
-      input: RecordValidationBody,
-      options?: RequestOptions,
-    ): Promise<void> {
-      return transport.executeRequest<void>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/email-validation`,
-          data: input,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  ): Promise<void> {
+    return this._transport.executeRequest<void>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/contacts/${encodeURIComponent(String(contactId))}/email-validation`,
+        data: input,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

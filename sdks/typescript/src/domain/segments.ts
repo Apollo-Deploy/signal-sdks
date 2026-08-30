@@ -12,102 +12,78 @@ import type {
   SegmentResponse,
 } from '../types/index.js';
 
-export interface SegmentsAPI {
-  listSegments(projectId: string, options?: RequestOptions): Promise<SegmentPageResponse>;
+export class SegmentsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
+
+  listSegments(projectId: string, options?: RequestOptions): Promise<SegmentPageResponse> {
+    return this._transport.executeRequest<SegmentPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   getSegment(
     projectId: string,
     segmentId: string,
     options?: RequestOptions,
-  ): Promise<SegmentResponse>;
+  ): Promise<SegmentResponse> {
+    return this._transport.executeRequest<SegmentResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   listContactsInSegment(
     projectId: string,
     segmentId: string,
     options?: RequestOptions,
-  ): Promise<CursorPage>;
+  ): Promise<CursorPage> {
+    return this._transport.executeRequest<CursorPage>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}/contacts`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   createSegment(
     projectId: string,
     input: CreateSegmentBody,
     options?: RequestOptions,
-  ): Promise<SegmentResponse>;
+  ): Promise<SegmentResponse> {
+    return this._transport.executeRequest<SegmentResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteSegment(projectId: string, segmentId: string, options?: RequestOptions): Promise<void>;
-}
-
-export function createSegmentsAPI(transport: SDKTransport): SegmentsAPI {
-  return {
-    listSegments(projectId: string, options?: RequestOptions): Promise<SegmentPageResponse> {
-      return transport.executeRequest<SegmentPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getSegment(
-      projectId: string,
-      segmentId: string,
-      options?: RequestOptions,
-    ): Promise<SegmentResponse> {
-      return transport.executeRequest<SegmentResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    listContactsInSegment(
-      projectId: string,
-      segmentId: string,
-      options?: RequestOptions,
-    ): Promise<CursorPage> {
-      return transport.executeRequest<CursorPage>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}/contacts`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    createSegment(
-      projectId: string,
-      input: CreateSegmentBody,
-      options?: RequestOptions,
-    ): Promise<SegmentResponse> {
-      return transport.executeRequest<SegmentResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteSegment(projectId: string, segmentId: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  deleteSegment(projectId: string, segmentId: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/segments/${encodeURIComponent(String(segmentId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

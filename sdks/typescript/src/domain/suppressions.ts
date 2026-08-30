@@ -13,98 +13,75 @@ import type {
   SuppressionResponse,
 } from '../types/index.js';
 
-export interface SuppressionsAPI {
-  listSuppressions(projectId: string, options?: RequestOptions): Promise<SuppressionPageResponse>;
+export class SuppressionsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
 
-  exportSuppressions(projectId: string, options?: RequestOptions): Promise<void>;
+  listSuppressions(projectId: string, options?: RequestOptions): Promise<SuppressionPageResponse> {
+    return this._transport.executeRequest<SuppressionPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
+
+  exportSuppressions(projectId: string, options?: RequestOptions): Promise<void> {
+    return this._transport.executeRequest<void>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/export`,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   addSuppression(
     projectId: string,
     input: AddSuppressionBody,
     options?: RequestOptions,
-  ): Promise<SuppressionResponse>;
+  ): Promise<SuppressionResponse> {
+    return this._transport.executeRequest<SuppressionResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  removeSuppression(projectId: string, email: string, options?: RequestOptions): Promise<void>;
+  removeSuppression(projectId: string, email: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/${encodeURIComponent(String(email))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   importSuppressions(
     projectId: string,
     input: SuppressionImportBody,
     options?: RequestOptions,
-  ): Promise<SuppressionImportResponse>;
-}
-
-export function createSuppressionsAPI(transport: SDKTransport): SuppressionsAPI {
-  return {
-    listSuppressions(
-      projectId: string,
-      options?: RequestOptions,
-    ): Promise<SuppressionPageResponse> {
-      return transport.executeRequest<SuppressionPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    exportSuppressions(projectId: string, options?: RequestOptions): Promise<void> {
-      return transport.executeRequest<void>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/export`,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    addSuppression(
-      projectId: string,
-      input: AddSuppressionBody,
-      options?: RequestOptions,
-    ): Promise<SuppressionResponse> {
-      return transport.executeRequest<SuppressionResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    removeSuppression(projectId: string, email: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/${encodeURIComponent(String(email))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    importSuppressions(
-      projectId: string,
-      input: SuppressionImportBody,
-      options?: RequestOptions,
-    ): Promise<SuppressionImportResponse> {
-      return transport.executeRequest<SuppressionImportResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/import`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-  };
+  ): Promise<SuppressionImportResponse> {
+    return this._transport.executeRequest<SuppressionImportResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/suppressions/import`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 }

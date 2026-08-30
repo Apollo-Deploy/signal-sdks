@@ -12,151 +12,118 @@ import type {
   UpdateBimiRequest,
 } from '../types/index.js';
 
-export interface SendingDomainsAPI {
-  listDomains(projectId: string, options?: RequestOptions): Promise<DomainListPageResponse>;
+export class SendingDomainsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
 
-  getDomain(projectId: string, domainId: string, options?: RequestOptions): Promise<DomainResponse>;
+  listDomains(projectId: string, options?: RequestOptions): Promise<DomainListPageResponse> {
+    return this._transport.executeRequest<DomainListPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
+
+  getDomain(
+    projectId: string,
+    domainId: string,
+    options?: RequestOptions,
+  ): Promise<DomainResponse> {
+    return this._transport.executeRequest<DomainResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   registerDomain(
     projectId: string,
     input: RegisterDomainRequest,
     options?: RequestOptions,
-  ): Promise<DomainResponse>;
+  ): Promise<DomainResponse> {
+    return this._transport.executeRequest<DomainResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   verifyDomain(
     projectId: string,
     domainId: string,
     options?: RequestOptions,
-  ): Promise<DomainResponse>;
+  ): Promise<DomainResponse> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<DomainResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/verify`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteDomain(projectId: string, domainId: string, options?: RequestOptions): Promise<void>;
+  deleteDomain(projectId: string, domainId: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 
   verifyBimi(
     projectId: string,
     domainId: string,
     options?: RequestOptions,
-  ): Promise<DomainResponse>;
+  ): Promise<DomainResponse> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<DomainResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/bimi/verify`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateBimi(
     projectId: string,
     domainId: string,
     input: UpdateBimiRequest,
     options?: RequestOptions,
-  ): Promise<DomainResponse>;
-}
-
-export function createSendingDomainsAPI(transport: SDKTransport): SendingDomainsAPI {
-  return {
-    listDomains(projectId: string, options?: RequestOptions): Promise<DomainListPageResponse> {
-      return transport.executeRequest<DomainListPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getDomain(
-      projectId: string,
-      domainId: string,
-      options?: RequestOptions,
-    ): Promise<DomainResponse> {
-      return transport.executeRequest<DomainResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    registerDomain(
-      projectId: string,
-      input: RegisterDomainRequest,
-      options?: RequestOptions,
-    ): Promise<DomainResponse> {
-      return transport.executeRequest<DomainResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    verifyDomain(
-      projectId: string,
-      domainId: string,
-      options?: RequestOptions,
-    ): Promise<DomainResponse> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<DomainResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/verify`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteDomain(projectId: string, domainId: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-
-    verifyBimi(
-      projectId: string,
-      domainId: string,
-      options?: RequestOptions,
-    ): Promise<DomainResponse> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<DomainResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/bimi/verify`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateBimi(
-      projectId: string,
-      domainId: string,
-      input: UpdateBimiRequest,
-      options?: RequestOptions,
-    ): Promise<DomainResponse> {
-      return transport.executeRequest<DomainResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/bimi`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-  };
+  ): Promise<DomainResponse> {
+    return this._transport.executeRequest<DomainResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/domains/${encodeURIComponent(String(domainId))}/bimi`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 }

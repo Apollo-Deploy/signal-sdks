@@ -1,4 +1,4 @@
-package signal
+package v4
 
 import (
 	"bytes"
@@ -59,7 +59,7 @@ func NewTransport(cfg TransportConfig) *Transport {
 		cfg.MaxRetries = 0
 	}
 	if cfg.UserAgent == "" {
-		cfg.UserAgent = "signal-go-sdk/1.0.5"
+		cfg.UserAgent = "v4-go-sdk/4.0.0"
 	}
 	return &Transport{
 		config: cfg,

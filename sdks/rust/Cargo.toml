@@ -1,6 +1,6 @@
 [package]
 name = "apollo-signal-sdk"
-version = "1.0.5"
+version = "4.0.0"
 edition = "2021"
 description = "Rust SDK for Apollo Signal API"
 license = "MIT"

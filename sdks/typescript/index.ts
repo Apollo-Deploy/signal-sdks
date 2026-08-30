@@ -4,36 +4,24 @@
  * DO NOT MODIFY THIS FILE DIRECTLY.
  */
 
-// Client
-export { createApolloSignalApiClient } from './src/client.js';
-export type { ApolloSignalApiClient, ApolloSignalApiClientConfig } from './src/client.js';
+// Client class — primary entry point
+export { ApolloSignalApi } from './src/client.js';
+
+// Domain classes
+export { EmailsAPI } from './src/domain/emails.js';
+export { MetricsAPI } from './src/domain/metrics.js';
+export { SuppressionsAPI } from './src/domain/suppressions.js';
+export { SegmentsAPI } from './src/domain/segments.js';
+export { TopicsAPI } from './src/domain/topics.js';
+export { ContactPropertiesAPI } from './src/domain/contact-properties.js';
+export { ContactsAPI } from './src/domain/contacts.js';
+export { WebhooksAPI } from './src/domain/webhooks.js';
+export { ApiKeysAPI } from './src/domain/api-keys.js';
+export { ProjectsAPI } from './src/domain/projects.js';
+export { SendingDomainsAPI } from './src/domain/sending-domains.js';
 
 // Error class
 export { SDKError } from './src/types/errors.js';
-
-// Transport
-export { createTransport, executeRequest } from './src/transport/axios.js';
-export type {
-  RetryConfig,
-  TransportConfig,
-  ResolvedTransportConfig,
-  SDKTransport,
-  SDKPlugin,
-  RequestOptions,
-  ResponseBodyExpectation,
-  RequestMeta,
-  ResponseMeta,
-  ErrorMeta,
-} from './src/transport/axios.js';
-
-// SSE (Server-Sent Events)
-export {
-  createSSEDataStream,
-  createSSEStream,
-  parseSSEChunk,
-  parseSSEEventData,
-} from './src/transport/sse.js';
-export type { SSEEvent, SSEOptions, SSEReconnectConfig } from './src/transport/sse.js';
 
 // Common types
 export type {
@@ -44,19 +32,3 @@ export type {
   MessageResponse,
   ApiErrorEnvelope,
 } from './src/types/common.js';
-
-// Domain API types
-export type { EmailsAPI } from './src/domain/emails.js';
-export type { MetricsAPI } from './src/domain/metrics.js';
-export type { SuppressionsAPI } from './src/domain/suppressions.js';
-export type { SegmentsAPI } from './src/domain/segments.js';
-export type { TopicsAPI } from './src/domain/topics.js';
-export type { ContactPropertiesAPI } from './src/domain/contact-properties.js';
-export type { ContactsAPI } from './src/domain/contacts.js';
-export type { WebhooksAPI } from './src/domain/webhooks.js';
-export type { ApiKeysAPI } from './src/domain/api-keys.js';
-export type { ProjectsAPI } from './src/domain/projects.js';
-export type { SendingDomainsAPI } from './src/domain/sending-domains.js';
-
-// Types
-export * from './src/types/index.js';

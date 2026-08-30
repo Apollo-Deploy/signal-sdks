@@ -14,9 +14,9 @@ pub fn build(b: *std.Build) void {
         .name = "apollo_signal",
         .root_module = module,
         .version = .{
-            .major = 1,
+            .major = 4,
             .minor = 0,
-            .patch = 5,
+            .patch = 0,
         },
     });
     b.installArtifact(library);

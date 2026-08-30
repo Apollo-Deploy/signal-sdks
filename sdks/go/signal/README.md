@@ -7,7 +7,7 @@ Go client for the Apollo Signal API API.
 ## Installation
 
 ```bash
-go get github.com/apollo-deploy/signal-sdks/sdks/go/signal
+go get github.com/apollo-deploy/signal-sdks/sdks/go/signal/v4
 ```
 
 ## Quick start
@@ -19,12 +19,12 @@ import (
     "context"
     "time"
 
-    "github.com/apollo-deploy/signal-sdks/sdks/go/signal"
+    "github.com/apollo-deploy/signal-sdks/sdks/go/signal/v4"
 )
 
 func main() {
-    client := signal.NewClient(
-        signal.WithTimeout(15*time.Second),
+    client := v4.NewClient(
+        v4.WithTimeout(15*time.Second),
     )
 
     ctx := context.Background()
@@ -38,10 +38,10 @@ func main() {
 The client is safe for concurrent use. Requests use contexts for cancellation, bounded timeouts, exponential-backoff retries, `Retry-After` handling, default headers, and structured `SDKError` values. Unsafe requests are not retried unless an idempotency key is present or unsafe retries are explicitly enabled.
 
 ```go
-client := signal.NewClient(
-    signal.WithTimeout(30*time.Second),
-    signal.WithMaxRetries(3),
-    signal.WithDefaultHeader("X-Application", "my-service"),
+client := v4.NewClient(
+    v4.WithTimeout(30*time.Second),
+    v4.WithMaxRetries(3),
+    v4.WithDefaultHeader("X-Application", "my-service"),
 )
 ```
 
@@ -67,7 +67,7 @@ client := signal.NewClient(
 ## Error handling
 
 ```go
-var sdkErr *signal.SDKError
+var sdkErr *v4.SDKError
 if errors.As(err, &sdkErr) {
     log.Printf("status=%d code=%s request=%s", sdkErr.Status, sdkErr.Code, sdkErr.RequestID)
 }

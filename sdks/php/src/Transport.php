@@ -103,7 +103,7 @@ class Transport
             ->withFragment('');
         $headers = $config['defaultHeaders'] ?? [];
         $headers['Accept'] = $headers['Accept'] ?? 'application/json';
-        $headers['User-Agent'] = $headers['User-Agent'] ?? 'ApolloSignalApi-php-sdk/1.0.5';
+        $headers['User-Agent'] = $headers['User-Agent'] ?? 'ApolloSignalApi-php-sdk/4.0.0';
 
         $this->http = new GuzzleClient([
             'base_uri' => (string) $baseUri,

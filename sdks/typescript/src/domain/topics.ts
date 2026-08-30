@@ -13,118 +13,91 @@ import type {
   UpdateTopicBody,
 } from '../types/index.js';
 
-export interface TopicsAPI {
-  listTopics(projectId: string, options?: RequestOptions): Promise<TopicPageResponse>;
+export class TopicsAPI {
+  constructor(private readonly _transport: SDKTransport) {}
 
-  getTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<TopicResponse>;
+  listTopics(projectId: string, options?: RequestOptions): Promise<TopicPageResponse> {
+    return this._transport.executeRequest<TopicPageResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
+
+  getTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<TopicResponse> {
+    return this._transport.executeRequest<TopicResponse>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   listContactsInTopic(
     projectId: string,
     topicId: string,
     options?: RequestOptions,
-  ): Promise<CursorPage>;
+  ): Promise<CursorPage> {
+    return this._transport.executeRequest<CursorPage>(
+      {
+        method: 'GET',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}/contacts`,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   createTopic(
     projectId: string,
     input: CreateTopicBody,
     options?: RequestOptions,
-  ): Promise<TopicResponse>;
+  ): Promise<TopicResponse> {
+    return this._transport.executeRequest<TopicResponse>(
+      {
+        method: 'POST',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
   updateTopic(
     projectId: string,
     topicId: string,
     input: UpdateTopicBody,
     options?: RequestOptions,
-  ): Promise<TopicResponse>;
+  ): Promise<TopicResponse> {
+    return this._transport.executeRequest<TopicResponse>(
+      {
+        method: 'PATCH',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
+        data: input,
+      },
+      options,
+      { mode: 'required', allowEmptyString: false, allowNull: false },
+    );
+  }
 
-  deleteTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<void>;
-}
-
-export function createTopicsAPI(transport: SDKTransport): TopicsAPI {
-  return {
-    listTopics(projectId: string, options?: RequestOptions): Promise<TopicPageResponse> {
-      return transport.executeRequest<TopicPageResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    getTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<TopicResponse> {
-      return transport.executeRequest<TopicResponse>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    listContactsInTopic(
-      projectId: string,
-      topicId: string,
-      options?: RequestOptions,
-    ): Promise<CursorPage> {
-      return transport.executeRequest<CursorPage>(
-        {
-          method: 'GET',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}/contacts`,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    createTopic(
-      projectId: string,
-      input: CreateTopicBody,
-      options?: RequestOptions,
-    ): Promise<TopicResponse> {
-      return transport.executeRequest<TopicResponse>(
-        {
-          method: 'POST',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    updateTopic(
-      projectId: string,
-      topicId: string,
-      input: UpdateTopicBody,
-      options?: RequestOptions,
-    ): Promise<TopicResponse> {
-      return transport.executeRequest<TopicResponse>(
-        {
-          method: 'PATCH',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
-          data: input,
-        },
-        options,
-        { mode: 'required', allowEmptyString: false, allowNull: false },
-      );
-    },
-
-    deleteTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<void> {
-      const requestHeaders: Record<string, string> = {};
-      requestHeaders['Content-Type'] = 'application/json';
-      return transport.executeRequest<void>(
-        {
-          method: 'DELETE',
-          url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
-          data: {},
-          headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
-        },
-        options,
-        { mode: 'none' },
-      );
-    },
-  };
+  deleteTopic(projectId: string, topicId: string, options?: RequestOptions): Promise<void> {
+    const requestHeaders: Record<string, string> = {};
+    requestHeaders['Content-Type'] = 'application/json';
+    return this._transport.executeRequest<void>(
+      {
+        method: 'DELETE',
+        url: `/v1/projects/${encodeURIComponent(String(projectId))}/topics/${encodeURIComponent(String(topicId))}`,
+        data: {},
+        headers: Object.keys(requestHeaders).length > 0 ? requestHeaders : undefined,
+      },
+      options,
+      { mode: 'none' },
+    );
+  }
 }

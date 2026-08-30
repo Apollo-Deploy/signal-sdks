@@ -39,7 +39,7 @@ pub const Client = struct {
                 .max_request_bytes = config.max_request_bytes,
                 .max_response_bytes = config.max_response_bytes,
                 .default_headers = config.default_headers,
-                .user_agent = "apollo_signal-zig-sdk/1.0.5",
+                .user_agent = "apollo_signal-zig-sdk/4.0.0",
             }),
         };
     }

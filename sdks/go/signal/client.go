@@ -1,4 +1,4 @@
-package signal
+package v4
 
 import (
 	"context"
@@ -61,7 +61,7 @@ func NewClient(opts ...ClientOption) *Client {
 		MaxRetries: cfg.MaxRetries,
 		RetryUnsafeRequests: cfg.RetryUnsafeRequests,
 		Headers: cfg.DefaultHeaders,
-		UserAgent: "signal-go-sdk/1.0.5",
+		UserAgent: "v4-go-sdk/4.0.0",
 	})
 	return &Client{
 		config: cfg,

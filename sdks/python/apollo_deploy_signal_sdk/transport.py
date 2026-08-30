@@ -91,7 +91,7 @@ class SDKTransport:
         self.retry_unsafe_requests = retry_unsafe_requests
         self.default_headers = {
             "Accept": "application/json",
-            "User-Agent": "apollo_deploy_signal_sdk-python-sdk/1.0.5",
+            "User-Agent": "apollo_deploy_signal_sdk-python-sdk/4.0.0",
             **(default_headers or {}),
         }
         self.on_request = on_request

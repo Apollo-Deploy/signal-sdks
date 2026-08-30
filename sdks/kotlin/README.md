@@ -8,7 +8,7 @@ Kotlin client for the Apollo Signal API API.
 
 ```kotlin
 dependencies {
-    implementation("com.apollodeploy.signal:signal-sdk-kotlin:1.0.5")
+    implementation("com.apollodeploy.signal:signal-sdk-kotlin:4.0.0")
 }
 ```
 

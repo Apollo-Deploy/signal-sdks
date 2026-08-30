@@ -2,7 +2,7 @@
 
 
 
-Generated for Zig 0.16.0 as package `apollo_signal` version `1.0.5`.
+Generated for Zig 0.16.0 as package `apollo_signal` version `4.0.0`.
 
 ## Requirements
 
