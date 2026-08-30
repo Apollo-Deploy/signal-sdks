@@ -7,7 +7,7 @@ import java.util.Map;
 /** Configuration and primary client for the Apollo Signal API API. */
 public final class ApolloSignalApiClient implements AutoCloseable {
     public static final class Config {
-        private String baseUrl = "https://signal.apollodeploy.com";
+        private String baseUrl = "https://api.signal.apollodeploy.com";
         private Map<String, String> authValues = Map.of();
         private Map<String, String> defaultHeaders = Map.of();
         private int timeoutMs = 15_000;

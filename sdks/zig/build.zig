@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
         .version = .{
             .major = 4,
             .minor = 0,
-            .patch = 0,
+            .patch = 1,
         },
     });
     b.installArtifact(library);

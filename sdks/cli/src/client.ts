@@ -103,7 +103,7 @@ export function createApolloSignalApiClient(
   cfg: ApolloSignalApiClientConfig = {},
 ): ApolloSignalApiClient {
   const config: ApolloSignalApiClientConfig = {
-    baseUrl: cfg.baseUrl ?? 'https://signal.apollodeploy.com',
+    baseUrl: cfg.baseUrl ?? 'https://api.signal.apollodeploy.com',
     timeoutMs: cfg.timeoutMs ?? 15000,
     retries: cfg.retries ?? { attempts: 3, backoffMs: 400, jitter: true },
     getIdempotencyKey: cfg.getIdempotencyKey,

@@ -7,7 +7,7 @@ Java client for the Apollo Signal API API.
 ## Installation
 
 ```groovy
-implementation 'com.apollodeploy.signal.sdk:com.apollodeploy.signal.sdk:4.0.0'
+implementation 'com.apollodeploy.signal.sdk:com.apollodeploy.signal.sdk:4.0.1'
 ```
 
 ## Quick start
@@ -17,7 +17,7 @@ import com.apollodeploy.signal.sdk.ApolloSignalApiClient;
 
 var client = new ApolloSignalApiClient(
         new ApolloSignalApiClient.Config()
-                .baseUrl("https://signal.apollodeploy.com")
+                .baseUrl("https://api.signal.apollodeploy.com")
                 .timeoutMs(15_000));
 var api = client.emails();
 ```

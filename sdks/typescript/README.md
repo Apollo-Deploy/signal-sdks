@@ -16,7 +16,7 @@ npm install @apollo-deploy/signal-sdk
 import { createApolloSignalApiClient } from '@apollo-deploy/signal-sdk';
 
 const client = createApolloSignalApiClient({
-  baseUrl: 'https://signal.apollodeploy.com',
+  baseUrl: 'https://api.signal.apollodeploy.com',
   timeoutMs: 15_000,
 });
 

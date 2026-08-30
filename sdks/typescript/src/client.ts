@@ -55,7 +55,7 @@ export class ApolloSignalApi {
 
   constructor() {
     this._transport = createTransport({
-      baseUrl: 'https://signal.apollodeploy.com',
+      baseUrl: 'https://api.signal.apollodeploy.com',
       timeoutMs: 15000,
       retries: { attempts: 3, backoffMs: 400, jitter: true },
     });

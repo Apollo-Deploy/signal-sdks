@@ -530,7 +530,7 @@ public sealed class Transport : IDisposable
             new Uri(target.ToString(), UriKind.Absolute));
 
         httpRequest.Headers.TryAddWithoutValidation("Accept", "application/json");
-        httpRequest.Headers.TryAddWithoutValidation("User-Agent", "ApolloDeploy.Signal/4.0.0");
+        httpRequest.Headers.TryAddWithoutValidation("User-Agent", "ApolloDeploy.Signal/4.0.1");
 
         if (_config.DefaultHeaders != null)
         {

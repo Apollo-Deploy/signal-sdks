@@ -17,7 +17,7 @@ using ApolloDeploySignal;
 
 var client = new ApolloSignalApiClient(new ApolloSignalApiClientConfig
 {
-    BaseUrl = "https://signal.apollodeploy.com",
+    BaseUrl = "https://api.signal.apollodeploy.com",
     TimeoutMs = 15_000,
 });
 

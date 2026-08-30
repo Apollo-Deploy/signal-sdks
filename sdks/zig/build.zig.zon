@@ -1,6 +1,6 @@
 .{
     .name = .apollo_signal,
-    .version = "4.0.0",
+    .version = "4.0.1",
     .fingerprint = 0x53632f0200000001,
     .minimum_zig_version = "0.16.0",
     .dependencies = .{},

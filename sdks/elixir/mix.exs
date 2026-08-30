@@ -4,7 +4,7 @@ defmodule ApolloSignal.MixProject do
   def project do
     [
       app: :apollo_signal,
-      version: "4.0.0",
+      version: "4.0.1",
       description: description(),
       package: package(),
       source_url: "https://github.com/Apollo-Deploy/signal-sdks",

@@ -59,7 +59,7 @@ func NewTransport(cfg TransportConfig) *Transport {
 		cfg.MaxRetries = 0
 	}
 	if cfg.UserAgent == "" {
-		cfg.UserAgent = "v4-go-sdk/4.0.0"
+		cfg.UserAgent = "v4-go-sdk/4.0.1"
 	}
 	return &Transport{
 		config: cfg,

@@ -30,7 +30,7 @@ module ApolloDeploySignalSdk
   # @param sse_client [Object, nil] optional SSE client implementation
   # @return [ApolloDeploySignalSdk::Client]
   def self.create_client(
-    base_url: "https://signal.apollodeploy.com",
+    base_url: "https://api.signal.apollodeploy.com",
     timeout: 15,
     retries: { attempts: 3, backoff: 0.4, jitter: true, max_backoff: 30.0 },
     sse_client: nil,

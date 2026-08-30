@@ -20,7 +20,7 @@ bundle install
 require 'apollo-deploy-signal-sdk'
 
 client = ApolloDeploySignalSdk::Client.new(
-  base_url: "https://signal.apollodeploy.com",
+  base_url: "https://api.signal.apollodeploy.com",
   timeout: 15
 )
 

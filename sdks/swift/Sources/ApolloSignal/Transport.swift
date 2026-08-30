@@ -49,7 +49,7 @@ public final class Transport: @unchecked Sendable {
             authHeaders: [String: String] = [:],
             authQuery: [String: String] = [:],
             authCookies: [String: String] = [:],
-            userAgent: String = "ApolloSignal/4.0.0"
+            userAgent: String = "ApolloSignal/4.0.1"
         ) {
             self.baseURL = baseURL
             self.defaultHeaders = defaultHeaders

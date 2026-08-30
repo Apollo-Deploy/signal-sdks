@@ -32,7 +32,7 @@ module ApolloDeploySignalSdkRails
     # @param retries [Hash] retry configuration
     # @param default_headers [Hash] headers sent with every request
     def initialize(
-      base_url: "https://signal.apollodeploy.com",
+      base_url: "https://api.signal.apollodeploy.com",
       timeout: 15,
       retries: { attempts: 3, backoff: 0.4, jitter: true, max_backoff: 30.0 },
       default_headers: {},

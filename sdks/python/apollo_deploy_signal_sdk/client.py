@@ -20,7 +20,7 @@ class ApolloSignalApiClientConfig:
 
     def __init__(
         self,
-        base_url: str = "https://signal.apollodeploy.com",
+        base_url: str = "https://api.signal.apollodeploy.com",
         timeout_ms: int = 15000,
         retries: int = 3,
         retry_unsafe_requests: bool = False,
@@ -78,7 +78,7 @@ class ApolloSignalApiClient:
 
 
 def create_apollo_signal_api_client(
-    base_url: str = "https://signal.apollodeploy.com",
+    base_url: str = "https://api.signal.apollodeploy.com",
     **kwargs,
 ) -> ApolloSignalApiClient:
     "Create a new Apollo Signal API SDK client."

@@ -12,7 +12,7 @@ constructing the client. Retries are bounded, only safe methods are retried by d
 
 ```elixir
 client = ApolloSignal.new(
-  base_url: "https://signal.apollodeploy.com",
+  base_url: "https://api.signal.apollodeploy.com",
   timeout_ms: 5_000,
   max_retries: 3
 )

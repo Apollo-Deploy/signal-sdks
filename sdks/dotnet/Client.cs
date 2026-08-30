@@ -8,7 +8,7 @@ using ApolloDeploySignal.Api;
 /// <summary>Configuration for the ApolloSignalApi API client.</summary>
 public sealed class ApolloSignalApiClientConfig
 {
-    public string BaseUrl { get; set; } = "https://signal.apollodeploy.com";
+    public string BaseUrl { get; set; } = "https://api.signal.apollodeploy.com";
     public int TimeoutMs { get; set; } = 15000;
     public int MaxRetries { get; set; } = 3;
     public bool RetryUnsafeRequests { get; set; }

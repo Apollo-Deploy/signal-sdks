@@ -31,7 +31,7 @@ func WithDefaultHeader(key, value string) ClientOption {
 
 func DefaultConfig() ClientConfig {
 	return ClientConfig{
-		BaseURL: "https://signal.apollodeploy.com", Timeout: 15 * time.Second, MaxRetries: 3,
+		BaseURL: "https://api.signal.apollodeploy.com", Timeout: 15 * time.Second, MaxRetries: 3,
 	}
 }
 
@@ -61,7 +61,7 @@ func NewClient(opts ...ClientOption) *Client {
 		MaxRetries: cfg.MaxRetries,
 		RetryUnsafeRequests: cfg.RetryUnsafeRequests,
 		Headers: cfg.DefaultHeaders,
-		UserAgent: "v4-go-sdk/4.0.0",
+		UserAgent: "v4-go-sdk/4.0.1",
 	})
 	return &Client{
 		config: cfg,

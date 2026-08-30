@@ -16,7 +16,7 @@ public struct ClientConfig: Sendable {
     public let maxResponseBodyBytes: Int
 
     public init(
-        baseURL: String = "https://signal.apollodeploy.com",
+        baseURL: String = "https://api.signal.apollodeploy.com",
         defaultHeaders: [String: String] = [:],
         timeoutMilliseconds: Int = 15_000,
         maxRetries: Int = 3,
@@ -67,7 +67,7 @@ public final class ApolloSignalApi: @unchecked Sendable {
                 authHeaders: authHeaders,
                 authQuery: authQuery,
                 authCookies: authCookies,
-                userAgent: "ApolloSignal/4.0.0"
+                userAgent: "ApolloSignal/4.0.1"
             )
         )
         emails = EmailsApi(transport: transport)

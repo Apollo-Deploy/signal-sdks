@@ -2,7 +2,7 @@
 
 import PackageDescription
 
-// Generated SDK version: 4.0.0
+// Generated SDK version: 4.0.1
 let package = Package(
     name: "ApolloSignal",
     platforms: [

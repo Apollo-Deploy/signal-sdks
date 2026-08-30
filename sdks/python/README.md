@@ -16,7 +16,7 @@ pip install apollo-deploy-signal-sdk
 from apollo_deploy_signal_sdk import create_apollo_signal_api_client
 
 client = create_apollo_signal_api_client(
-    base_url="https://signal.apollodeploy.com",
+    base_url="https://api.signal.apollodeploy.com",
     timeout_ms=15_000,
 )
 

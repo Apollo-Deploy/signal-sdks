@@ -31,7 +31,7 @@ pub struct ClientConfig {
 impl Default for ClientConfig {
     fn default() -> Self {
         Self {
-            base_url: "https://signal.apollodeploy.com".to_string(),
+            base_url: "https://api.signal.apollodeploy.com".to_string(),
             timeout: Duration::from_secs(15),
             max_retries: 3,
             retry_unsafe_requests: false,

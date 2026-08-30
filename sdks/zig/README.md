@@ -2,7 +2,7 @@
 
 
 
-Generated for Zig 0.16.0 as package `apollo_signal` version `4.0.0`.
+Generated for Zig 0.16.0 as package `apollo_signal` version `4.0.1`.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ const sdk = @import("apollo_signal");
 var client = sdk.Client.init(.{
     .allocator = allocator,
     .io = io,
-    .base_url = "https://signal.apollodeploy.com",
+    .base_url = "https://api.signal.apollodeploy.com",
 });
 defer client.deinit();
 

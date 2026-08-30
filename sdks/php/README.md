@@ -20,7 +20,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Apollo\Deploy\Signal\Sdk\Client;
 
 $client = new Client([
-    'baseUrl' => 'https://signal.apollodeploy.com',
+    'baseUrl' => 'https://api.signal.apollodeploy.com',
     'timeoutMs' => 15000,
 ]);
 

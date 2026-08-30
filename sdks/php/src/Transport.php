@@ -90,7 +90,7 @@ class Transport
         }
 
         $this->config = $config;
-        $baseUrl = (string) ($config['baseUrl'] ?? 'https://signal.apollodeploy.com');
+        $baseUrl = (string) ($config['baseUrl'] ?? 'https://api.signal.apollodeploy.com');
         $baseUri = new Uri($baseUrl);
         if (!in_array(strtolower($baseUri->getScheme()), ['http', 'https'], true) || $baseUri->getHost() === '') {
             throw new \InvalidArgumentException('baseUrl must be an absolute HTTP(S) URL');
@@ -103,7 +103,7 @@ class Transport
             ->withFragment('');
         $headers = $config['defaultHeaders'] ?? [];
         $headers['Accept'] = $headers['Accept'] ?? 'application/json';
-        $headers['User-Agent'] = $headers['User-Agent'] ?? 'ApolloSignalApi-php-sdk/4.0.0';
+        $headers['User-Agent'] = $headers['User-Agent'] ?? 'ApolloSignalApi-php-sdk/4.0.1';
 
         $this->http = new GuzzleClient([
             'base_uri' => (string) $baseUri,

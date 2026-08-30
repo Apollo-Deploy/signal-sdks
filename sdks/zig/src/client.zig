@@ -15,7 +15,7 @@ const sendingDomains_domain = @import("domain/sending_domains.zig");
 pub const ClientConfig = struct {
     allocator: std.mem.Allocator,
     io: std.Io,
-    base_url: []const u8 = "https://signal.apollodeploy.com",
+    base_url: []const u8 = "https://api.signal.apollodeploy.com",
     timeout_ms: u64 = 15_000,
     max_retries: u8 = 3,
     retry_unsafe_requests: bool = false,
@@ -39,7 +39,7 @@ pub const Client = struct {
                 .max_request_bytes = config.max_request_bytes,
                 .max_response_bytes = config.max_response_bytes,
                 .default_headers = config.default_headers,
-                .user_agent = "apollo_signal-zig-sdk/4.0.0",
+                .user_agent = "apollo_signal-zig-sdk/4.0.1",
             }),
         };
     }

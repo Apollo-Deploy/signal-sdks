@@ -8,7 +8,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! apollo_signal_sdk = "4.0.0"
+//! apollo_signal_sdk = "4.0.1"
 //! ```
 //!
 //! Then use it:

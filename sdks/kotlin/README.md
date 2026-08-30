@@ -8,7 +8,7 @@ Kotlin client for the Apollo Signal API API.
 
 ```kotlin
 dependencies {
-    implementation("com.apollodeploy.signal:signal-sdk-kotlin:4.0.0")
+    implementation("com.apollodeploy.signal:signal-sdk-kotlin:4.0.1")
 }
 ```
 
@@ -20,7 +20,7 @@ import com.apollodeploy.signal.sdk.ClientConfig
 
 val client = ApolloSignalApiClient(
     ClientConfig(
-        baseUrl = "https://signal.apollodeploy.com",
+        baseUrl = "https://api.signal.apollodeploy.com",
         timeoutMs = 15_000,
     )
 )

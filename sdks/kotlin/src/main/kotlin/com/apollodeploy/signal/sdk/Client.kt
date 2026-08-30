@@ -6,7 +6,7 @@ import com.apollodeploy.signal.sdk.internal.TransportConfig
 
 /** Configuration for the Apollo Signal API API client. */
 data class ClientConfig(
-    val baseUrl: String = "https://signal.apollodeploy.com",
+    val baseUrl: String = "https://api.signal.apollodeploy.com",
     /** Headers sent with every request. */
     val defaultHeaders: Map<String, String> = emptyMap(),
     /** Request timeout in milliseconds. */

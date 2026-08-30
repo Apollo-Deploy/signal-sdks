@@ -170,7 +170,7 @@ module ApolloDeploySignalSdkRails
         faraday.options.timeout = config.timeout
         faraday.options.open_timeout = [config.timeout / 3.0, 2.0].max
         faraday.headers["Accept"] = "application/json"
-        faraday.headers["User-Agent"] = "apollo-deploy-signal-sdk-rails-ruby-sdk/4.0.0"
+        faraday.headers["User-Agent"] = "apollo-deploy-signal-sdk-rails-ruby-sdk/4.0.1"
         config.default_headers.each { |key, value| faraday.headers[key] = value }
         faraday.adapter Faraday.default_adapter
       end
