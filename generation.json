@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "sdkVersion": "1.0.2",
+  "tesseractVersion": "4.0.0",
+  "clientType": "public",
+  "generatedAt": "2026-08-30T13:19:52+02:00",
+  "source": {
+    "apiRelease": "v1.0.2",
+    "contractSha256": "69beccce20db9a80b2c193a82e267b9782794a2a89c13236642763a592893e12"
+  },
+  "distribution": {
+    "repository": "Apollo-Deploy/signal-sdks"
+  },
+  "targets": [
+    {
+      "target": "typescript",
+      "displayName": "TypeScript",
+      "directory": "typescript",
+      "aliases": [],
+      "registry": "npm",
+      "registryPackage": "@apollo-deploy/signal-sdk",
+      "installCommand": "npm install @apollo-deploy/signal-sdk@1.0.2"
+    },
+    {
+      "target": "python",
+      "displayName": "Python",
+      "directory": "python",
+      "aliases": [],
+      "registry": "pypi",
+      "registryPackage": "apollo-deploy-signal-sdk",
+      "installCommand": "pip install apollo-deploy-signal-sdk==1.0.2"
+    },
+    {
+      "target": "ruby",
+      "displayName": "Ruby",
+      "directory": "ruby",
+      "aliases": [],
+      "registry": "rubygems",
+      "registryPackage": "apollo-deploy-signal-sdk",
+      "installCommand": "gem install apollo-deploy-signal-sdk -v 1.0.2"
+    },
+    {
+      "target": "rails",
+      "displayName": "Rails",
+      "directory": "rails",
+      "aliases": [],
+      "registry": "rubygems",
+      "registryPackage": "apollo-deploy-signal-sdk-rails",
+      "installCommand": "gem install apollo-deploy-signal-sdk-rails -v 1.0.2"
+    },
+    {
+      "target": "go",
+      "displayName": "Go",
+      "directory": "go",
+      "aliases": [],
+      "registry": "go-modules",
+      "registryPackage": "github.com/apollo-deploy/signal-sdks/sdks/go/signal",
+      "installCommand": "go get github.com/apollo-deploy/signal-sdks/sdks/go/signal@v1.0.2"
+    },
+    {
+      "target": "php",
+      "displayName": "PHP",
+      "directory": "php",
+      "aliases": [],
+      "registry": "packagist",
+      "registryPackage": "apollo-deploy/signal-sdk",
+      "installCommand": "composer require apollo-deploy/signal-sdk:^1.0.2"
+    },
+    {
+      "target": "laravel",
+      "displayName": "Laravel",
+      "directory": "laravel",
+      "aliases": [],
+      "registry": "packagist",
+      "registryPackage": "apollo-deploy/signal-sdk",
+      "installCommand": "composer require apollo-deploy/signal-sdk:^1.0.2"
+    },
+    {
+      "target": "java",
+      "displayName": "Java",
+      "directory": "java",
+      "aliases": [],
+      "registry": "maven-central",
+      "registryPackage": "com.apollodeploy.signal:signal-sdk-java",
+      "installCommand": "com.apollodeploy.signal:signal-sdk-java:1.0.2"
+    },
+    {
+      "target": "kotlin",
+      "displayName": "Kotlin",
+      "directory": "kotlin",
+      "aliases": [],
+      "registry": "maven-central",
+      "registryPackage": "com.apollodeploy.signal:signal-sdk-kotlin",
+      "installCommand": "com.apollodeploy.signal:signal-sdk-kotlin:1.0.2"
+    },
+    {
+      "target": "dotnet",
+      "displayName": ".NET / C#",
+      "directory": "dotnet",
+      "aliases": [
+        "csharp"
+      ],
+      "registry": "nuget",
+      "registryPackage": "ApolloDeploy.Signal",
+      "installCommand": "dotnet add package ApolloDeploy.Signal --version 1.0.2"
+    },
+    {
+      "target": "rust",
+      "displayName": "Rust",
+      "directory": "rust",
+      "aliases": [],
+      "registry": "crates.io",
+      "registryPackage": "apollo-signal-sdk",
+      "installCommand": "cargo add apollo-signal-sdk@1.0.2"
+    },
+    {
+      "target": "elixir",
+      "displayName": "Elixir",
+      "directory": "elixir",
+      "aliases": [],
+      "registry": "hex",
+      "registryPackage": "apollo_signal",
+      "installCommand": "{:apollo_signal, \"~> 1.0.2\"}"
+    },
+    {
+      "target": "swift",
+      "displayName": "Swift",
+      "directory": "swift",
+      "aliases": [],
+      "registry": "swiftpm",
+      "registryPackage": "https://github.com/Apollo-Deploy/signal-sdks.git",
+      "installCommand": ".package(url: \"https://github.com/Apollo-Deploy/signal-sdks.git\", from: \"1.0.2\")"
+    },
+    {
+      "target": "zig",
+      "displayName": "Zig",
+      "directory": "zig",
+      "aliases": [],
+      "registry": "github-release",
+      "registryPackage": "apollo_signal",
+      "installCommand": "zig fetch --save https://github.com/Apollo-Deploy/signal-sdks/releases/download/v1.0.2/apollo-signal-zig-1.0.2.tar.gz"
+    },
+    {
+      "target": "cli",
+      "displayName": "CLI",
+      "directory": "cli",
+      "aliases": [],
+      "registry": "npm",
+      "registryPackage": "@apollo-deploy/signal-cli",
+      "installCommand": "npm install --global @apollo-deploy/signal-cli@1.0.2"
+    }
+  ]
+}

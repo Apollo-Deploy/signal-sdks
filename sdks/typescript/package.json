@@ -1,0 +1,47 @@
+{
+  "name": "@apollo-deploy/signal-sdk",
+  "version": "1.0.2",
+  "type": "module",
+  "description": "TypeScript SDK for the Apollo Signal API",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc"
+  },
+  "dependencies": {
+    "axios": "1.19.0"
+  },
+  "peerDependencies": {
+    "zod": "^4.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "zod": "^4.4.0"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "author": "Apollo Deploy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apollo-Deploy/signal-sdks.git"
+  },
+  "homepage": "https://github.com/Apollo-Deploy/signal-sdks#readme",
+  "bugs": {
+    "url": "https://github.com/Apollo-Deploy/signal-sdks/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,58 @@
+import com.vanniktech.maven.publish.JavaLibrary
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.SourcesJar
+
+plugins {
+    id 'java-library'
+    id 'com.vanniktech.maven.publish' version '0.37.0'
+}
+
+group = 'com.apollodeploy.signal'
+version = '1.0.2'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+mavenPublishing {
+    coordinates('com.apollodeploy.signal', 'signal-sdk-java', project.version.toString())
+    configure(new JavaLibrary(new JavadocJar.Empty(), new SourcesJar.Sources()))
+    publishToMavenCentral()
+    signAllPublications()
+
+    pom {
+        name.set('Apollo Signal Java SDK')
+        description.set('Generated Java SDK for the Apollo Signal API')
+        url.set('https://github.com/Apollo-Deploy/signal-sdks')
+
+        licenses {
+            license {
+                name.set('MIT License')
+                url.set('https://opensource.org/license/mit')
+            }
+        }
+
+        developers {
+            developer {
+                id.set('apollo-deploy')
+                name.set('Apollo Deploy')
+                url.set('https://github.com/Apollo-Deploy')
+            }
+        }
+
+        scm {
+            url.set('https://github.com/Apollo-Deploy/signal-sdks')
+            connection.set('scm:git:https://github.com/Apollo-Deploy/signal-sdks.git')
+            developerConnection.set('scm:git:ssh://git@github.com/Apollo-Deploy/signal-sdks.git')
+        }
+    }
+}

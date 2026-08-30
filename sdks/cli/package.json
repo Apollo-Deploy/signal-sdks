@@ -1,0 +1,55 @@
+{
+  "name": "@apollo-deploy/signal-cli",
+  "version": "1.0.2",
+  "type": "module",
+  "description": "Command-line client for the Apollo Signal API",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc",
+    "start": "node ./dist/src/cli.js"
+  },
+  "dependencies": {
+    "axios": "1.19.0"
+  },
+  "peerDependencies": {
+    "zod": "^4.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "zod": "^4.4.0",
+    "@types/node": "^20.14.0"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "signal-cli": "./dist/src/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Apollo Deploy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apollo-Deploy/signal-sdks.git"
+  },
+  "homepage": "https://github.com/Apollo-Deploy/signal-sdks#readme",
+  "bugs": {
+    "url": "https://github.com/Apollo-Deploy/signal-sdks/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

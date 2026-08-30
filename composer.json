@@ -1,0 +1,44 @@
+{
+  "name": "apollo-deploy/signal-sdk",
+  "description": "PHP SDK for Apollo Signal with optional Laravel auto-discovery",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Apollo\\Deploy\\Signal\\Sdk\\": "sdks/php/src/",
+      "Apollo\\Deploy\\Signal\\Laravel\\": "sdks/laravel/src/"
+    },
+    "classmap": [
+      "sdks/php/src/Types.php"
+    ]
+  },
+  "require": {
+    "php": ">=8.1",
+    "guzzlehttp/guzzle": "^7.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "illuminate/support": "^11.0 || ^12.0 || ^13.0"
+  },
+  "authors": [
+    {
+      "name": "Apollo Deploy"
+    }
+  ],
+  "homepage": "https://github.com/Apollo-Deploy/signal-sdks",
+  "support": {
+    "issues": "https://github.com/Apollo-Deploy/signal-sdks/issues",
+    "source": "https://github.com/Apollo-Deploy/signal-sdks"
+  },
+  "suggest": {
+    "illuminate/support": "Enables automatic Laravel service-container integration"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Apollo\\Deploy\\Signal\\Laravel\\SignalServiceProvider"
+      ]
+    }
+  }
+}

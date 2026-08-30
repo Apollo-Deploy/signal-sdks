@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <PackageId>ApolloDeploy.Signal</PackageId>
+    <Version>1.0.2</Version>
+    <Description>C# SDK for Apollo Signal API</Description>
+    <Authors>Apollo Deploy</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Apollo-Deploy/signal-sdks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Apollo-Deploy/signal-sdks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>apollo;signal;email;sdk</PackageTags>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ApolloDeploySignal</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md" Pack="true" PackagePath="\" />
+    <None Update="LICENSE" Pack="true" PackagePath="\" />
+    <None Update="docs/**/*.md" Pack="true" PackagePath="docs/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.*" />
+  </ItemGroup>
+
+</Project>
