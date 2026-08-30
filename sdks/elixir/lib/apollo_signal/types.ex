@@ -4072,8 +4072,8 @@ defmodule ApolloSignal.Types.ListApiKeysResponse do
   def from_map(data) when is_map(data) do
     %__MODULE__{
       additional_properties:
-        .decode_map(
-          .extra_fields(data, []),
+        ApolloSignal.Types.decode_map(
+          ApolloSignal.Types.extra_fields(data, []),
           fn value -> decode_list(value, fn value -> ApolloSignal.Types.from_api_key(value) end) end
         ),
     }
@@ -4084,7 +4084,7 @@ defmodule ApolloSignal.Types.ListApiKeysResponse do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{}
-    |> Map.merge(.encode(value.additional_properties))
+    |> Map.merge(ApolloSignal.Types.encode(value.additional_properties))
   end
 end
 

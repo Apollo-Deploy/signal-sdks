@@ -333,6 +333,11 @@ jobs:
               npm pack --dry-run
 
               package_name="$(jq -r '.name' package.json)"
+              if npm view "$package_name@$SDK_VERSION" version \
+                --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+                echo "$package_name@$SDK_VERSION is already published; skipping it."
+                exit 0
+              fi
               if npm view "$package_name" version \
                 --registry=https://registry.npmjs.org >/dev/null 2>&1; then
                 npm publish --access public --tag "$npm_tag"

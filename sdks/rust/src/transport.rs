@@ -98,7 +98,7 @@ impl Transport {
         config.max_retries = config.max_retries.min(MAX_RETRY_COUNT);
         let client = ReqwestClient::builder()
             .timeout(config.timeout)
-            .user_agent("apollo_signal_sdk-rust-sdk/1.0.2")
+            .user_agent("apollo_signal_sdk-rust-sdk/1.0.4")
             .build()
             .expect("failed to build reqwest client");
         Self { client, config: Arc::new(config) }

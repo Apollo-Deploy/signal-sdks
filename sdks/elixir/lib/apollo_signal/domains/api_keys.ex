@@ -2,7 +2,6 @@ defmodule ApolloSignal.Domains.ApiKeys do
   @moduledoc "apiKeys API operations."
 
   alias ApolloSignal.Client, as: Client
-  alias ApolloSignal.Types, as: Types
   alias ApolloSignal.Transport, as: Transport
   alias ApolloSignal.Errors, as: Errors
 

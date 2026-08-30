@@ -59,7 +59,7 @@ func NewTransport(cfg TransportConfig) *Transport {
 		cfg.MaxRetries = 0
 	}
 	if cfg.UserAgent == "" {
-		cfg.UserAgent = "signal-go-sdk/1.0.2"
+		cfg.UserAgent = "signal-go-sdk/1.0.4"
 	}
 	return &Transport{
 		config: cfg,

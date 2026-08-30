@@ -276,7 +276,7 @@ public final class Transport implements AutoCloseable {
                 setHeader(headers, "Content-Type", request.contentType == null ? "application/json" : request.contentType);
             }
             if (!containsHeader(headers, "Accept")) headers.put("Accept", "application/json");
-            if (!containsHeader(headers, "User-Agent")) headers.put("User-Agent", "com.apollodeploy.signal.sdk/1.0.2");
+            if (!containsHeader(headers, "User-Agent")) headers.put("User-Agent", "com.apollodeploy.signal.sdk/1.0.4");
             if (!cookies.isEmpty()) {
                 String cookieHeader = cookies.entrySet().stream()
                         .map(entry -> encodePathSegment(entry.getKey()) + "="

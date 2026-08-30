@@ -48,7 +48,7 @@ pub const TransportConfig = struct {
     max_request_bytes: usize = MAX_REQUEST_BYTES,
     max_response_bytes: usize = MAX_RESPONSE_BYTES,
     default_headers: []const Header = &.{},
-    user_agent: []const u8 = "apollo_signal-zig-sdk/1.0.2",
+    user_agent: []const u8 = "apollo_signal-zig-sdk/1.0.4",
 };
 
 pub const Request = struct {

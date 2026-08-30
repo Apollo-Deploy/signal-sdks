@@ -8,7 +8,7 @@ Rust client for the Apollo Signal API API.
 
 ```toml
 [dependencies]
-apollo_signal_sdk = "1.0.2"
+apollo_signal_sdk = "1.0.4"
 ```
 
 ## Quick start
