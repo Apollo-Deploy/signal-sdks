@@ -61,7 +61,7 @@ func NewClient(opts ...ClientOption) *Client {
 		MaxRetries: cfg.MaxRetries,
 		RetryUnsafeRequests: cfg.RetryUnsafeRequests,
 		Headers: cfg.DefaultHeaders,
-		UserAgent: "signal-go-sdk/1.0.4",
+		UserAgent: "signal-go-sdk/1.0.5",
 	})
 	return &Client{
 		config: cfg,

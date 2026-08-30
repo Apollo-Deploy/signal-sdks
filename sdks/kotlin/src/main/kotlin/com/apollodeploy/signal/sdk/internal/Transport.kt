@@ -94,7 +94,7 @@ class Transport(
             url(config.baseUrl)
             accept(ContentType.Application.Json)
             if (config.defaultHeaders.keys.none { it.equals(HttpHeaders.UserAgent, ignoreCase = true) }) {
-                header(HttpHeaders.UserAgent, "com.apollodeploy.signal.sdk/1.0.4")
+                header(HttpHeaders.UserAgent, "com.apollodeploy.signal.sdk/1.0.5")
             }
             config.defaultHeaders.forEach { (key, value) -> headers.append(key, value) }
         }

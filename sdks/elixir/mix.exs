@@ -4,7 +4,7 @@ defmodule ApolloSignal.MixProject do
   def project do
     [
       app: :apollo_signal,
-      version: "1.0.4",
+      version: "1.0.5",
       description: description(),
       package: package(),
       source_url: "https://github.com/Apollo-Deploy/signal-sdks",
@@ -22,7 +22,8 @@ defmodule ApolloSignal.MixProject do
   defp deps do
     [
       {:req, "~> 0.5"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
 

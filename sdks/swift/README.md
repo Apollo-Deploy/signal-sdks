@@ -6,7 +6,7 @@ Swift client for the Apollo Signal API API.
 
 ## Installation
 
-Add the generated package to your Swift package dependencies or copy it into a workspace. The generated package is version `1.0.4` and has no third-party dependencies.
+Add the generated package to your Swift package dependencies or copy it into a workspace. The generated package is version `1.0.5` and has no third-party dependencies.
 
 ## Quick start
 

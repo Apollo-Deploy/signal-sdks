@@ -3,13 +3,13 @@
 The Laravel integration bundled with the Apollo Signal PHP SDK. The single Composer package
 contains the generated PHP client and registers it with Laravel's service container.
 
-> This integration is generated from Apollo Signal release `v1.0.4`. Do not edit generated
+> This integration is generated from Apollo Signal release `v1.0.5`. Do not edit generated
 > files manually.
 
 ## Installation
 
 ```bash
-composer require apollo-deploy/signal-sdk:^1.0.4
+composer require apollo-deploy/signal-sdk:^1.0.5
 ```
 
 Laravel discovers `SignalServiceProvider` automatically. Set the Signal API key:
